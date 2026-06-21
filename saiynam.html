@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ماهگرد ۷ | نسخه ۴</title>
+  <style>
+    :root{
+      --bg1:#070812;
+      --bg2:#141733;
+      --card:rgba(255,255,255,.08);
+      --card2:rgba(255,255,255,.12);
+      --text:#fff;
+      --pink:#ff5ba3;
+      --pink2:#ff2d75;
+      --gold:#ffd76b;
+      --line:rgba(255,255,255,.12);
+      --shadow:0 20px 70px rgba(0,0,0,.4);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      width:100%;
+      min-height:100%;
+      overflow-x:hidden;
+      font-family:Tahoma, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,91,163,.18), transparent 28%),
+        radial-gradient(circle at 80% 80%, rgba(255,215,107,.14), transparent 25%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      color:var(--text);
+    }
+
+    body{
+      position:relative;
+    }
+
+    .bg-glow{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      overflow:hidden;
+    }
+
+    .glow{
+      position:absolute;
+      border-radius:50%;
+      filter:blur(45px);
+      opacity:.35;
+      animation: floatGlow 12s ease-in-out infinite;
+    }
+
+    .glow.one{
+      width:260px;
+      height:260px;
+      background:#ff4d9d;
+      top:10%;
+      right:7%;
+    }
+
+    .glow.two{
+      width:210px;
+      height:210px;
+      background:#6be7ff;
+      bottom:10%;
+      left:6%;
+      animation-delay:2s;
+    }
+
+    .glow.three{
+      width:230px;
+      height:230px;
+      background:#ffd86b;
+      top:45%;
+      left:40%;
+      animation-delay:4s;
+    }
+
+    @keyframes floatGlow{
+      0%,100%{ transform:translateY(0) translateX(0) scale(1); }
+      50%{ transform:translateY(-18px) translateX(12px) scale(1.08); }
+    }
+
+    .hearts-layer,.particles-layer{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+      overflow:hidden;
+    }
+
+    .heart,.particle{
+      position:absolute;
+      animation: rise linear infinite;
+    }
+
+    .heart{
+      color:#ff78b8;
+      text-shadow:0 0 16px rgba(255,120,184,.6);
+      font-size:18px;
+      opacity:.85;
+    }
+
+    .particle{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:rgba(255,255,255,.85);
+      box-shadow:0 0 10px rgba(255,255,255,.55);
+      opacity:.7;
+    }
+
+    @keyframes rise{
+      from{
+        transform:translateY(100vh) translateX(0) rotate(0deg);
+        opacity:0;
+      }
+      10%{ opacity:1; }
+      to{
+        transform:translateY(-20vh) translateX(40px) rotate(360deg);
+        opacity:0;
+      }
+    }
+
+    .screen{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      position:relative;
+      z-index:2;
+    }
+
+    .glass{
+      width:min(720px, 100%);
+      border-radius:34px;
+      background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px);
+    }
+
+    .start-card{
+      padding:30px 22px;
+      text-align:center;
+    }
+
+    .title{
+      margin:0 0 10px;
+      font-size:clamp(28px, 6vw, 56px);
+      line-height:1.25;
+      text-shadow:0 8px 30px rgba(0,0,0,.35);
+    }
+
+    .desc{
+      margin:0 auto 18px;
+      max-width:560px;
+      line-height:2.05;
+      color:rgba(255,255,255,.9);
+      font-size:16px;
+    }
+
+    .input-row{
+      display:grid;
+      gap:10px;
+      max-width:420px;
+      margin:0 auto;
+    }
+
+    .input{
+      width:100%;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.08);
+      color:#fff;
+      outline:none;
+      font-size:16px;
+    }
+
+    .btn{
+      border:none;
+      outline:none;
+      cursor:pointer;
+      padding:14px 18px;
+      border-radius:16px;
+      font-size:16px;
+      font-weight:700;
+      color:#fff;
+      background:linear-gradient(135deg, var(--pink), var(--pink2));
+      box-shadow:0 12px 30px rgba(255,47,125,.35);
+      transition:transform .2s ease, filter .2s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px) scale(1.01);
+      filter:brightness(1.05);
+    }
+
+    .btn.secondary{
+      background:linear-gradient(135deg, rgba(255,255,255,.2), rgba(255,255,255,.1));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:none;
+    }
+
+    .small{
+      margin-top:10px;
+      font-size:13px;
+      color:rgba(255,255,255,.72);
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    .app{
+      width:min(1200px, 94vw);
+      margin:0 auto;
+      padding:20px 0 36px;
+      position:relative;
+      z-index:2;
+    }
+
+    .topbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:14px;
+    }
+
+    .badge,.stat{
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(14px);
+      box-shadow:var(--shadow);
+    }
+
+    .hero{
+      text-align:center;
+      padding:14px 8px 18px;
+    }
+
+    .hero h1{
+      margin:10px 0 12px;
+      font-size:clamp(30px, 5vw, 60px);
+      line-height:1.25;
+    }
+
+    .typewriter{
+      min-height:76px;
+      font-size:clamp(18px, 2.4vw, 24px);
+      line-height:2;
+      color:rgba(255,255,255,.92);
+      margin:0 auto;
+      max-width:940px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    @media (max-width: 920px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(16px);
+      overflow:hidden;
+    }
+
+    .card-header{
+      padding:18px 20px 0;
+      font-size:20px;
+      font-weight:700;
+    }
+
+    .card-body{
+      padding:18px 20px 22px;
+    }
+
+    .progress-wrap{
+      width:100%;
+      height:14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.08);
+      margin:10px 0 14px;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0%;
+      background:linear-gradient(90deg, #ff6cb7, #ffd66b);
+      border-radius:999px;
+      transition:width .45s ease;
+    }
+
+    .music-row,.footer-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .audio-note,.mission-text{
+      margin-top:12px;
+      font-size:14px;
+      line-height:1.9;
+      color:rgba(255,255,255,.82);
+    }
+
+    .question-box{
+      display:none;
+    }
+
+    .question-box.active{
+      display:block;
+    }
+
+    .question{
+      margin:0 0 14px;
+      font-size:18px;
+      line-height:2;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+    }
+
+    .option{
+      text-align:right;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.07);
+      color:#fff;
+      cursor:pointer;
+      transition:.18s;
+      font-size:15px;
+    }
+
+    .option:hover{
+      background:rgba(255,255,255,.14);
+      transform:translateX(-2px);
+    }
+
+    .gallery-wrap{
+      margin-top:16px;
+    }
+
+    .slider{
+      position:relative;
+      aspect-ratio:16 / 10;
+      border-radius:26px;
+      overflow:hidden;
+      background:#000;
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      transform:scale(.97);
+      transition:opacity .5s ease, transform .5s ease;
+    }
+
+    .slide.active{
+      opacity:1;
+      transform:scale(1);
+    }
+
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+      background:#000;
+    }
+
+    .thumbs{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:12px;
+    }
+
+    .thumb-dot{
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      border:none;
+      cursor:pointer;
+      background:rgba(255,255,255,.25);
+      transition:.2s;
+    }
+
+    .thumb-dot.active{
+      background:var(--gold);
+      transform:scale(1.2);
+    }
+
+    .love-box{
+      margin-top:16px;
+      padding:22px;
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.12);
+      line-height:2.15;
+      font-size:17px;
+      box-shadow:var(--shadow);
+    }
+
+    .love-box h2{
+      margin:0 0 10px;
+      font-size:20px;
+    }
+
+    .typed-cursor{
+      display:inline-block;
+      width:10px;
+      color:var(--gold);
+      animation: blink .8s infinite;
+    }
+
+    @keyframes blink{
+      0%,100%{ opacity:0; }
+      50%{ opacity:1; }
+    }
+
+    .secret{
+      display:none;
+      margin-top:16px;
+      padding:18px;
+      border-radius:24px;
+      background:linear-gradient(135deg, rgba(255,91,163,.18), rgba(255,215,107,.12));
+      border:1px solid rgba(255,255,255,.16);
+      text-align:center;
+      box-shadow:var(--shadow);
+      line-height:2;
+    }
+
+    .heart-pop{
+      position:fixed;
+      left:50%;
+      top:50%;
+      transform:translate(-50%, -50%) scale(.3);
+      font-size:22px;
+      opacity:0;
+      pointer-events:none;
+      z-index:999;
+      animation: popHeart 1s ease forwards;
+    }
+
+    @keyframes popHeart{
+      0%{ opacity:0; transform:translate(-50%, -50%) scale(.2); }
+      25%{ opacity:1; transform:translate(-50%, -50%) scale(1.5); }
+      100%{ opacity:0; transform:translate(-50%, -130px) scale(2.5); }
+    }
+
+    .meter{
+      display:grid;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .meter-row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      font-size:14px;
+      color:rgba(255,255,255,.85);
+    }
+
+    .final-note{
+      text-align:center;
+      margin-top:18px;
+      color:rgba(255,255,255,.8);
+      font-size:14px;
+      line-height:1.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+    <div class="glow three"></div>
+  </div>
+
+  <div class="hearts-layer" id="heartsLayer"></div>
+  <div class="particles-layer" id="particlesLayer"></div>
+
+  <section class="screen" id="startScreen">
+    <div class="glass start-card">
+      <h1 class="title">ماهگرد ۷ ❤️</h1>
+      <p class="desc">
+        این فقط یه صفحه نیست امیر جان...
+        این یه تکه از دلمونه که تبدیل شده به وب‌سایت.
+        <br>
+        برای باز کردنش باید رمز عشق رو وارد کنی.
+      </p>
+
+      <div class="input-row">
+        <input id="passInput" class="input" type="password" placeholder="رمز را وارد کن" />
+        <button class="btn" id="enterBtn">ورود به دنیای دونفره</button>
+      </div>
+
+      <div class="small" id="startMsg">رمز درست: saiyna</div>
+    </div>
+  </section>
+
+  <main class="app hidden" id="app">
+    <div class="topbar">
+      <div class="badge">ماهگرد ۷ | امیر و ساینا 💞</div>
+      <div class="stat">عشق‌سنج: <span id="loveStat">0%</span></div>
+      <div class="stat">مرحله: <span id="stageStat">1</span></div>
+    </div>
+
+    <section class="hero">
+      <h1>۷ ماه کنار تو، یعنی قشنگ‌ترین اتفاق زندگی من</h1>
+      <p class="typewriter" id="typewriter"></p>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="card-header">🎵 موزیک و مأموریت عاشقانه</div>
+        <div class="card-body">
+          <div class="music-row">
+            <button class="btn" id="musicBtn">شروع موزیک</button>
+            <button class="btn secondary" id="missionBtn">مأموریت امروز</button>
+          </div>
+
+          <audio id="music" src="Tahe Ghalbet Are.mp3" loop></audio>
+
+          <div class="progress-wrap">
+            <div class="progress-bar" id="musicProgress"></div>
+          </div>
+
+          <div class="mission-text" id="missionText">
+            روی «مأموریت امروز» بزن تا یه کار قشنگ و عاشقونه بهت بدم 😌
+          </div>
+
+          <div class="meter">
+            <div class="meter-row">
+              <span>حس خوب</span>
+              <span>100%</span>
+            </div>
+            <div class="meter-row">
+              <span>بغل مجازی</span>
+              <span>∞</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">🔐 سوالات عاشقونه</div>
+        <div class="card-body">
+          <div class="progress-wrap">
+            <div class="progress-bar" id="quizProgress"></div>
+          </div>
+
+          <div class="question-box active" id="questionBox"></div>
+
+          <div class="footer-actions" style="margin-top:14px;">
+            <span id="quizCounter">سوال 1 از 15</span>
+            <button class="btn secondary" id="nextQuestion">سوال بعدی</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="card gallery-wrap">
+      <div class="card-header">📸 گالری خاطره‌ها</div>
+      <div class="card-body">
+        <div class="slider" id="slider"></div>
+
+        <div class="footer-actions" style="margin-top:14px;">
+          <button class="btn secondary" id="prevSlide">قبلی</button>
+          <button class="btn secondary" id="nextSlide">بعدی</button>
+        </div>
+
+        <div class="thumbs" id="thumbs"></div>
+      </div>
+    </section>
+
+    <section class="love-box">
+      <h2>متن عاشقانه‌ی اختصاصی</h2>
+      <div id="typedText"></div><span class="typed-cursor">|</span>
+    </section>
+
+    <div class="secret" id="secretBox">
+      🎉 آفرین امیر جان!  
+      <br>
+      تو این صفحه رو با عشق باز کردی...
+      <br>
+      حالا یه بغلِ خیلی بزرگ، یه لبخندِ خیلی قشنگ، و یه قلبِ خیلی پررنگ برای تو 😍❤️
+    </div>
+
+    <div class="final-note">
+      ساخته شده با بند بند وجودم برای ساینام دختر اولم ❤️💕
+    </div>
+  </main>
+
+  <script>
+    const galleryImages = [
+      "8a176d87-718d-415d-9ad5-e455487c0cac.webp",
+      "9eb18417-bc45-4f66-8339-463610048224.webp",
+     ];
+
+    const questionsData = [
+      { q:"اولین چیزی که از من یادت میاد چیه؟", a:["خنده‌ات","چشمات","صدات","همه‌ی اینا"] },
+      { q:"به نظرت من بیشتر عاشق چی‌ام؟", a:["تو","لبخندت","صدات","همه‌چی"] },
+      { q:"اگه یه روز ناراحت باشم، تو چیکار می‌کنی؟", a:["بغلم می‌کنی","حالمو بهتر می‌کنی","با من حرف می‌زنی","همه‌ی موارد"] },
+      { q:"قشنگ‌ترین حسِ رابطه‌مون چیه؟", a:["اعتماد","آرامش","عشق","همه"] },
+      { q:"اولین هدیه‌ای که دلم می‌خواد بدم چیه؟", a:["گل","بغل","موزیک","همه"] },
+      { q:"به نظرت من بیشتر چه‌جوری دوستت دارم؟", a:["بی‌صدا","قوی","عمیق","همه"] },
+      { q:"اگه یه اسم دیگه صدا‌ت کنم؟", a:["عشقم","نفس","همدم","همه"] },
+      { q:"بهترین خاطره‌ی ما؟", a:["اولین دیدار","خنده‌ها","گفتگوها","همه"] },
+      { q:"با تو بودن یعنی؟", a:["خانه","آرامش","لبخند","زندگی"] },
+      { q:"تو برای من چه معنی‌ای داری؟", a:["همه‌چیز","قلب","نفس","زندگی"] },
+      { q:"اگه یه آهنگ برای تو باشه؟", a:["تا ته قلبت آره","آهنگ عاشقانه","صدای تو","همه"] },
+      { q:"برای ۷ ماهگی بهترین کلمه؟", a:["عشق","آرامش","تداوم","همه"] },
+      { q:"من با تو چیکار می‌کنم؟", a:["زندگی می‌کنم","عاشق می‌شم","می‌خندم","همه"] },
+      { q:"تو برای منی؟", a:["قشنگ‌ترین اتفاق","تمام آرامش","بهترین حس","همه"] },
+      { q:"آخرش چی می‌خوایم باشیم؟", a:["تا ابد کنار هم","همیشه عاشق","خانه‌ی هم","همه"] }
+    ];
+
+const missions = [
+  "امروز یه جمله‌ی خیلی قشنگ براش بفرست ❤️",
+  "یه آهنگ عاشقانه پلی کن و فقط بهش فکر کن 🎵",
+  "یکی از خاطره‌های خوبتون رو دوباره تعریف کن ✨",
+  "یه پیام کوتاه بفرست که حالشو خوب کنه 💌",
+  "فقط یه قلب بفرست، بدون هیچ توضیحی 💖",
+  "امروز بهش بگو: تو دلیل قشنگِ خیلی از روزهای منی 🌷",
+  "یه عکس دو نفره از گالری‌ت انتخاب کن و براش بفرست 📸",
+  "بهش بگو که چقدر خوشحالی که دارمش 🥰",
+  "یه برنامه‌ریزی خیالی برای یه سفر دوتایی بنویس و براش بفرست ✈️",
+  "یه ویس کوتاه بگیر و فقط توش بگو که چقدر دوستش داری 🎙️",
+  "تصور کن ۵ سال دیگه کجاییم؟ یه متن درباره‌ش بنویس براش ⏳",
+  "بهش بگو چه ویژگیِ اخلاقیِ خاصی داره که عاشقت کرده 🌟",
+  "یه اسم مستعار جدید و خیلی کیوت براش انتخاب کن 🍯",
+  "امروز تو چت‌هاتون کلی استیکر قلب براش بفرست 🧡",
+  "ازش بپرس: اگر قرار بود یه جای دنیا زندگی کنیم، کجا بود؟ 🌍",
+  "یه شعر یا یه تکه از یه آهنگ که یادِ اون می‌اندازتت براش بفرست 🎶",
+  "بهش بگو که قشنگ‌ترین اتفاقِ زندگی‌ت چیه؟ (همون خودِ اون) 😍",
+  "یه تعریفِ اختصاصی از چشماش یا لبخندش بکن 🌈",
+  "بهش قول بده که همیشه کنارش می‌مونی 🤝",
+  "یه چالشِ «سوالِ دونفره» راه بنداز و ازش بپرس ❓",
+  "یه پیامِ «خیلی دلم برات تنگ شده» همین الان بفرست 🥺",
+  "امروز یه جوری باهاش حرف بزن که انگار بارِ اوله داری می‌بینیش 🌸",
+  "بهش بگو که کدوم عادتِ اخلاقی‌اش رو خیلی دوست داری 💫",
+  "یه استوری یا پستِ عاشقانه که یادش می‌افتی براش بفرست 📱",
+  "بهش پیشنهاد بده که یه قرارِ آنلاینِ عاشقانه داشته باشید ☕",
+  "بابتِ تمامِ خوبی‌هایی که تا امروز در حقت کرده ازش تشکر کن 🙏",
+  "بهش بگو که با اومدنش به زندگی‌ت، چه چیزی توت عوض شده 🦋",
+  "یه جمله که فقط خودتون دو تا معنیشو می‌فهمید براش بنویس 🔑",
+  "امروز رو فقط به لبخند زدن فکر کن و انرژیِ مثبت براش بفرست ✨",
+  "جوری که دوس دارم سوپرایزم کن❤️‍🔥"
+  
+  
+];
+
+const loveParagraph = `
+تو برای من فقط یه اسم نیستی؛
+تو یه حسِ موندگار، یه آرامشِ واقعی، یه دلیلِ قشنگ برای لبخند زدن، و یه اتفاقی هستی که هر روز بیشتر از دیروز دوست‌داشتنی‌تر می‌شه.
+
+من هر وقت به تو فکر می‌کنم، انگار همه‌چیز یه لحظه آروم می‌شه.
+انگار دنیا یه کم مهربون‌تر می‌شه.
+انگار قلبم یادش می‌افته که برای چی باید تندتر بزنه.
+تو برای من فقط عشق نیستی...
+تو معنیِ قشنگِ عشق شدی.
+
+۷ ماه کنار تو بودن، یعنی فهمیدن این‌که بعضی آدما فقط وارد زندگی نمی‌شن،
+بلکه می‌شن بخشی از نفس کشیدن آدم.
+می‌شن تکیه‌گاه.
+می‌شن دلیلِ امید.
+می‌شن همون نوری که وسط تاریکی، راه رو نشون می‌ده.
+و تو دقیقاً برای من همین بودی.
+
+من از اون روزی که تو وارد دنیای من شدی،
+دیگه خیلی از چیزها مثل قبل نبود.
+خنده‌هام واقعی‌تر شد،
+شب‌هام آروم‌تر شد،
+دل‌تنگی‌هام معنی‌دارتر شد،
+و زندگی‌م یه رنگی گرفت که قبل از تو نمی‌شناختمش.
+
+تو همون کسی هستی که اگه صدات رو بشنوم،
+یه لبخند ناخودآگاه میاد روی صورتم.
+همون کسی که اگه یه لحظه ازش دور باشم،
+انگار یه چیزی توی دلم کم شده.
+همون کسی که بودنش از هر هدیه‌ای باارزش‌تره.
+همون کسی که می‌خوام وقتی خوشحاله، منم خوشحال باشم،
+وقتی خسته‌ست، من آرومش کنم،
+وقتی دلش گرفته، من پناهش باشم.
+
+عشقِ من به تو از جنس حرف‌های معمولی نیست.
+از جنسِ عادت هم نیست.
+از جنسِ اتفاقِ لحظه‌ای هم نیست.
+یه عشقِ عمیقه،
+یه عشقِ ریشه‌دار،
+یه حسِ واقعی که هر روز بیشتر توی دلم جا باز می‌کنه.
+من با تو فهمیدم که دوست داشتن یعنی:
+حواس‌جمع بودن،
+کنار هم موندن،
+فهمیدنِ همدیگه،
+ساختنِ خاطره‌های کوچیک،
+و ارزش دادن به چیزایی که شاید برای بقیه ساده باشه ولی برای ما دنیا باشه.
+
+تو برای من یه آدم معمولی نیستی.
+تو قشنگ‌ترین بخشِ فکرهای منی.
+تو قشنگ‌ترین دلیل برای ادامه دادن منی.
+تو همون اسمِ خاصی هستی که وقتی توی ذهنم تکرار می‌شه،
+قلبم یه جور دیگه می‌تپه.
+تو همون حضورِ امنی هستی که اگر هزار بار هم دنیا بهم سخت بگیره،
+باز دلم بخواد برگردم به سمتت.
+
+من دوست دارم با تو از روزهای عادی، خاطره بسازم.
+از خندیدن‌های بی‌دلیل،
+از حرف زدن‌های طولانی،
+از نگاه‌هایی که هزار تا حرف توشون هست،
+از سکوت‌هایی که کنار تو قشنگ می‌شن،
+و از لحظه‌هایی که فقط با بودن تو، کامل می‌شن.
+
+اگر بخوام خیلی صادقانه بگم،
+تو اون چیزی هستی که همیشه توی دلم آرزوش رو داشتم،
+بدون اینکه حتی بدونم دقیقاً دنبالش می‌گردم.
+تو اومدی و یه تیکه‌ی گم‌شده از قلب منو پیدا کردی.
+تو اومدی و به روزهای من معنی دادی.
+تو اومدی و باعث شدی باور کنم بعضی عشق‌ها واقعاً می‌تونن قشنگ،
+پاک، عمیق و موندگار باشن.
+
+من تو رو فقط برای امروز دوست ندارم.
+فقط برای این ۷ ماه هم نیست.
+من تو رو برای همه‌ی لحظه‌هایی که پشت سر گذاشتیم،
+برای همه‌ی لبخندهایی که ساختیم،
+برای همه‌ی دلتنگی‌هایی که با هم رد کردیم،
+و برای همه‌ی روزهای قشنگی که هنوز نیومدن، دوست دارم.
+
+دوست دارم بدونی که تو برای من خیلی بیشتر از یه عشق معمولی هستی.
+تو خونه‌ی قلب منی.
+تو آرامشِ ذهن منی.
+تو دلیلِ قشنگِ صبح‌های منی.
+تو همون کسی هستی که اگه هزار بار هم ازم بپرسی:
+«دوستم داری؟»
+باز با تمام وجود می‌گم:
+آره...
+خیلی بیشتر از چیزی که بشه با کلمه توضیحش داد.
+
+من می‌خوام توی همه‌ی فصل‌های زندگی کنار تو باشم.
+توی روزای خوب،
+توی روزای سخت،
+توی لحظه‌های خنده،
+توی لحظه‌های دلتنگی،
+توی شروع‌های تازه،
+توی خاطره‌های قدیمی،
+و حتی توی سکوت‌هایی که فقط دل‌ها همدیگه رو می‌فهمن.
+چون با تو، همه‌چیز واقعی‌تر، قشنگ‌تر و ارزشمندتره.
+
+اگر قرار باشه یه چیز رو همیشه نگه دارم،
+اون حسِ خوبیه که با تو تجربه کردم.
+اگر قرار باشه یه اسم رو تا همیشه توی قلبم داشته باشم،
+اون اسم تویی.
+اگر قرار باشه یه نفر باشه که هر روز بیشتر از قبل دوستش داشته باشم،
+باز هم تویی.
+
+تو برای من فقط عشق نیستی...
+تو بهترین اتفاق زندگی منی.
+تو قشنگ‌ترین حس منی.
+تو دلیلِ لبخندهای منی.
+تو آرزوی قشنگِ قلب منی.
+و من خوشحالم که ۷ ماهه کنارتم،
+و امیدوارم این قصه‌ی قشنگ،
+هیچ‌وقت تموم نشه.
+
+من همیشه دوستت دارم...
+بیشتر از کلمه،
+بیشتر از فاصله،
+بیشتر از زمان،
+و بیشتر از هر چیزی که بشه تصورش کرد.
+
+`;
+
+
+    const startScreen = document.getElementById("startScreen");
+    const app = document.getElementById("app");
+    const passInput = document.getElementById("passInput");
+    const enterBtn = document.getElementById("enterBtn");
+    const startMsg = document.getElementById("startMsg");
+
+    const music = document.getElementById("music");
+    const musicBtn = document.getElementById("musicBtn");
+    const missionBtn = document.getElementById("missionBtn");
+    const missionText = document.getElementById("missionText");
+    const musicProgress = document.getElementById("musicProgress");
+    const loveStat = document.getElementById("loveStat");
+    const stageStat = document.getElementById("stageStat");
+
+    const quizProgress = document.getElementById("quizProgress");
+    const questionBox = document.getElementById("questionBox");
+    const quizCounter = document.getElementById("quizCounter");
+    const nextQuestion = document.getElementById("nextQuestion");
+    const secretBox = document.getElementById("secretBox");
+
+    const slider = document.getElementById("slider");
+    const thumbs = document.getElementById("thumbs");
+    const prevSlide = document.getElementById("prevSlide");
+    const nextSlide = document.getElementById("nextSlide");
+
+    const heartsLayer = document.getElementById("heartsLayer");
+    const particlesLayer = document.getElementById("particlesLayer");
+
+    const typedText = document.getElementById("typedText");
+    const typewriter = document.getElementById("typewriter");
+
+    let currentQuestion = 0;
+    let currentSlide = 0;
+    let answered = false;
+    const selected = new Array(questionsData.length).fill(null);
+
+    function createFloating(layer, className, content, count){
+      for(let i=0;i<count;i++){
+        const el = document.createElement("div");
+        el.className = className;
+        el.textContent = content || "";
+        el.style.left = Math.random() * 100 + "vw";
+        el.style.animationDuration = (8 + Math.random()*10) + "s";
+        el.style.animationDelay = (-Math.random()*10) + "s";
+        el.style.fontSize = className === "heart" ? (14 + Math.random()*18) + "px" : "6px";
+        layer.appendChild(el);
+      }
+    }
+
+    function popHeart(){
+      const h = document.createElement("div");
+      h.className = "heart-pop";
+      h.textContent = "❤";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 1000);
+    }
+
+    function typeWriter(el, text, speed = 30){
+      el.textContent = "";
+      let i = 0;
+      const timer = setInterval(() => {
+        el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+        i++;
+        if(i >= text.length) clearInterval(timer);
+      }, speed);
+    }
+
+    function renderQuestion(index){
+      const q = questionsData[index];
+      questionBox.innerHTML = `
+        <p class="question">${q.q}</p>
+        <div class="options">
+          ${q.a.map((item, i) => `<button class="option" data-i="${i}">${item}</button>`).join("")}
+        </div>
+      `;
+      quizCounter.textContent = `سوال ${index + 1} از ${questionsData.length}`;
+      quizProgress.style.width = `${Math.round((index / questionsData.length) * 100)}%`;
+      answered = false;
+
+      document.querySelectorAll(".option").forEach(btn => {
+        btn.addEventListener("click", () => {
+          selected[index] = btn.dataset.i;
+          answered = true;
+          const score = selected.filter(v => v !== null).length;
+          const pct = Math.round(score / questionsData.length * 100);
+          loveStat.textContent = pct + "%";
+          musicProgress.style.width = pct + "%";
+          btn.style.outline = "2px solid #ffd66b";
+          popHeart();
+        });
+      });
+    }
+
+    function renderSlider(){
+      slider.innerHTML = "";
+      thumbs.innerHTML = "";
+      galleryImages.forEach((src, i) => {
+        const slide = document.createElement("div");
+        slide.className = "slide" + (i === currentSlide ? " active" : "");
+        slide.innerHTML = `<img src="${src}" alt="gallery-${i+1}">`;
+        slider.appendChild(slide);
+
+        const dot = document.createElement("button");
+        dot.className = "thumb-dot" + (i === currentSlide ? " active" : "");
+        dot.addEventListener("click", () => {
+          currentSlide = i;
+          renderSlider();
+          popHeart();
+        });
+        thumbs.appendChild(dot);
+      });
+    }
+
+    function openApp(){
+      startScreen.classList.add("hidden");
+      app.classList.remove("hidden");
+      typeWriter(typewriter, "این صفحه برای تو ساخته شده... برای کسی که بودنش، بهترین اتفاق زندگی من است.");
+      typeWriter(typedText, loveParagraph, 24);
+      renderQuestion(currentQuestion);
+      renderSlider();
+      createFloating(heartsLayer, "heart", "❤", 26);
+      createFloating(particlesLayer, "particle", "", 36);
+      stageStat.textContent = "1";
+      setTimeout(popHeart, 300);
+    }
+
+    enterBtn.addEventListener("click", () => {
+      if(passInput.value.trim() === "saiyna"){
+        startMsg.textContent = "درست بود! ورود موفقیت‌آمیز 💖";
+        setTimeout(openApp, 500);
+      }else{
+        startMsg.textContent = "رمز اشتباهه امیر جان 😅 دوباره بزن.";
+      }
+    });
+
+    passInput.addEventListener("keydown", (e) => {
+      if(e.key === "Enter") enterBtn.click();
+    });
+
+    musicBtn.addEventListener("click", async () => {
+      try{
+        await music.play();
+        musicBtn.textContent = "موزیک در حال پخشه 🎶";
+      }catch(err){
+        alert("مرورگر اجازه پخش نداد، دوباره بزن امیر جان 😄");
+      }
+    });
+
+    missionBtn.addEventListener("click", () => {
+      missionText.textContent = missions[Math.floor(Math.random() * missions.length)];
+      popHeart();
+    });
+
+    nextQuestion.addEventListener("click", () => {
+      if(!answered){
+        alert("اول یکی از گزینه‌ها رو انتخاب کن امیر جان 😌");
+        return;
+      }
+      if(currentQuestion < questionsData.length - 1){
+        currentQuestion++;
+        renderQuestion(currentQuestion);
+        stageStat.textContent = String(currentQuestion + 1);
+      }else{
+        questionBox.innerHTML = `
+          <div style="text-align:center; padding:18px 4px; line-height:2;">
+            <h2 style="margin-top:0;">تموم شد 😍</h2>
+            <p>تو از همه‌ی سوال‌ها رد شدی... عشق‌سنج هم رسید به سقف 💖</p>
+          </div>
+        `;
+        quizProgress.style.width = "100%";
+        secretBox.style.display = "block";
+        popHeart();
+      }
+    });
+
+    prevSlide.addEventListener("click", () => {
+      currentSlide = (currentSlide - 1 + galleryImages.length) % galleryImages.length;
+      renderSlider();
+    });
+
+    nextSlide.addEventListener("click", () => {
+      currentSlide = (currentSlide + 1) % galleryImages.length;
+      renderSlider();
+    });
+
+    setInterval(() => {
+      if(app.classList.contains("hidden")) return;
+      const current = parseInt(musicProgress.style.width || "0");
+      if(current < 100 && Math.random() > 0.6){
+        musicProgress.style.width = (current + 1) + "%";
+      }
+    }, 2500);
+
+    createFloating(heartsLayer, "heart", "❤", 20);
+    createFloating(particlesLayer, "particle", "", 28);
+  </script>
+</body>
+</html>
